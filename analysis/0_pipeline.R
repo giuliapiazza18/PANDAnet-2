@@ -1,4 +1,4 @@
-# PANDAnet0 - Script to run the pipeline for PANDAnet - Giulia, March 2024
+# PANDAnet0 - Script to run the pipeline for PANDAnet - Giulia, May 2024
 # (Set working directory if necessary)
 # ==== 1: Data setup ====
 source("analysis/1_data_setup.R")
