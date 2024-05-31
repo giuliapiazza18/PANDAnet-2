@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.httr-oauth
+.DS_Store
+.quarto
+data/
+output/
+analysis/regression_adjustment.nb.html
+analysis/regression_adjustment.Rmd
+analysis/cohens_d.R
+results/tables/adjustment.csv
+results/tables/
