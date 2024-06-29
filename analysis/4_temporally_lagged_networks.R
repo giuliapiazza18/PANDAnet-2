@@ -62,7 +62,7 @@ ti.model.full.sem = sem(ti.model.full, data = data.res, estimator = "ML", missin
 
 # Save parameters ====
 ti.estimates.full = subset( # save all estimated parameters for t2 nodes
-  parameterEstimates(ti.model.full.sem),
+  parameterEstimates(ti.model.full.sem, standardized = TRUE),
   op == "~"
 )
 
@@ -81,6 +81,15 @@ ti.net.lag1 %>% filter(t1.node=="TREAT" & abs(est.net) >0)
 
 ti.net.lag1.plot = qgraph(ti.net.lag1)
 
+
+ti.net.lag1.st = ti.estimates.lag1 %>% 
+  mutate(est.net = ifelse(pvalue <0.05,std.all,0),
+         t2.node = gsub("_6wk", "", lhs),
+         t1.node = gsub("_2wk", "", rhs)) %>%
+  select(t1.node,t2.node,est.net)
+
+ti.net.lag1.st %>% filter(t1.node=="TREAT" & abs(est.net) >0)
+
 ti.net.lag2 = ti.estimates.lag2 %>% 
   mutate(est.net = ifelse(pvalue <0.05,est,0),
          t2.node = gsub("_12wk", "", lhs),
@@ -91,6 +100,11 @@ ti.net.lag2 %>% filter(t1.node=="TREAT" & abs(est.net) >0)
 
 ti.net.lag2.plot = qgraph(ti.net.lag2)
 
+ti.net.lag2.st = ti.estimates.lag2 %>% 
+  mutate(est.net = ifelse(pvalue <0.05,std.all,0),
+         t2.node = gsub("_12wk", "", lhs),
+         t1.node = gsub("_6wk", "", rhs)) %>%
+  select(t1.node,t2.node,est.net)
 
 # Separate group networks ====
 # M1: Free groups, free time points ====

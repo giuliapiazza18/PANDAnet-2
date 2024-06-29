@@ -330,12 +330,25 @@ unfade = function(network, title, curve.val) {
 write.csv(ti.net.lag1, file = "results/tables/ti_lag1.csv", quote = FALSE, row.names = FALSE)
 write.csv(ti.net.lag2, file = "results/tables/ti_lag2.csv", quote = FALSE, row.names = FALSE)
 
+write.csv(ti.net.lag1.st, file = "results/tables/ti_lag1_st.csv", quote = FALSE, row.names = FALSE)
+write.csv(ti.net.lag2.st, file = "results/tables/ti_lag2_st.csv", quote = FALSE, row.names = FALSE)
 
-pdf("results/plots/unfaded_ti_lag1_2lags.pdf", width = 5, height = 5)
-unfade(ti.net.lag1, title = "", curve.val = c(0,0,-0.8,0.4,1,0,0,0,0,-0.6))
+
+# pdf("results/plots/unfaded_ti_lag1_2lags.pdf", width = 5, height = 5)
+# unfade(ti.net.lag1, title = "", curve.val = c(0,0,-0.8,0.4,1,0,0,0,0,-0.6))
+# dev.off()
+# 
+# pdf("results/plots/unfaded_ti_lag2_2lags.pdf", width = 5, height = 5)
+# unfade(ti.net.lag2, title = "", curve.val = c(0,0.5,0,0,0,0))
+# dev.off()
+
+# Plot standardised estimates 
+
+pdf("results/plots/unfaded_ti_lag1_st.pdf", width = 5, height = 5)
+unfade(ti.net.lag1.st, title = "", curve.val = c(0,0,-0.8,0.4,1,0,0,0,0,-0.6))
 dev.off()
 
-pdf("results/plots/unfaded_ti_lag2_2lags.pdf", width = 5, height = 5)
-unfade(ti.net.lag2, title = "", curve.val = c(0,0.5,0,0,0,0))
+pdf("results/plots/unfaded_ti_lag2_st.pdf", width = 5, height = 5)
+unfade(ti.net.lag2.st, title = "", curve.val = c(0,0.5,0,0,0,0))
 dev.off()
 
