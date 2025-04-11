@@ -35,7 +35,7 @@ estimates linear mixed models.
 ## 3. Contemporaneous Networks
 
 This
-[script](https://github.com/giuliapiazza18/PANDAnet/blob/main/analysis/3_contemporaneous_networks.R)
+[script](https://github.com/giuliapiazza18/PANDAnet-2/blob/main/analysis/3_contemporaneous_networks.R)
 estimates contemporaneous networks and compares network structures with
 the Network Comparison Test.
 
