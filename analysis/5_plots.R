@@ -333,6 +333,8 @@ write.csv(ti.net.lag2, file = "results/tables/ti_lag2.csv", quote = FALSE, row.n
 write.csv(ti.net.lag1.st, file = "results/tables/ti_lag1_st.csv", quote = FALSE, row.names = FALSE)
 write.csv(ti.net.lag2.st, file = "results/tables/ti_lag2_st.csv", quote = FALSE, row.names = FALSE)
 
+write.csv(ti.net.lag1.st.ci, file = "results/tables/ti_lag1_st_ci.csv", quote = FALSE, row.names = FALSE)
+write.csv(ti.net.lag2.st.ci, file = "results/tables/ti_lag2_st_ci.csv", quote = FALSE, row.names = FALSE)
 
 # pdf("results/plots/unfaded_ti_lag1_2lags.pdf", width = 5, height = 5)
 # unfade(ti.net.lag1, title = "", curve.val = c(0,0,-0.8,0.4,1,0,0,0,0,-0.6))
@@ -344,11 +346,96 @@ write.csv(ti.net.lag2.st, file = "results/tables/ti_lag2_st.csv", quote = FALSE,
 
 # Plot standardised estimates 
 
-pdf("results/plots/unfaded_ti_lag1_st.pdf", width = 5, height = 5)
-unfade(ti.net.lag1.st, title = "", curve.val = c(0,0,-0.8,0.4,1,0,0,0,0,-0.6))
+pdf("results/plots/unfaded_ti_lag1_st_ci.pdf", width = 5, height = 5)
+unfade(ti.net.lag1.st.ci, title = "", curve.val = c(0,0,-0.8,0.4,1,0,0,0,0,-0.6))
 dev.off()
 
-pdf("results/plots/unfaded_ti_lag2_st.pdf", width = 5, height = 5)
-unfade(ti.net.lag2.st, title = "", curve.val = c(0,0.5,0,0,0,0))
+pdf("results/plots/unfaded_ti_lag2_st_ci.pdf", width = 5, height = 5)
+unfade(ti.net.lag2.st.ci, title = "", curve.val = c(0,0.5,0,0,0,0))
+dev.off()
+
+## Cohen's d ====
+# Cohen's d for sumscore outcome ====
+library(effectsize)
+
+sumscores = data.frame(time = c(2,6,12),
+                       n = c(277,266,262,292,284,263),
+                       mean = c(9.94, 7.98, 6.9, 10.32, 8.76, 8.02),
+                       sd = c(5.83,5.63,5.83,5.55,5.86,6.12),
+                       cond = c(rep("sertraline",3), rep("placebo",3)))
+
+# Cohen's d =  M1 - M2 / sd_p
+# sd_p = √((SD1^2 + SD2^2) / 2)
+
+cohensd_2wk = round((10.32 - 9.94)/(sqrt((5.55^2 + 5.83^2)/2)),2)
+
+cohensd_6wk = round((8.76 - 7.98)/(sqrt((5.86^2 + 5.63^2)/2)),2)
+
+cohensd_12wk = round((8.02 - 6.90)/(sqrt((6.12^2 + 5.83^2)/2)),2)
+
+# Cohen's d for individual items ====
+item.cd = function(item, week){
+  plac = data.wide %>%
+    filter(group == 1) %>%
+    select(paste0(item, "_", week))
+  sert = data.wide %>%
+    filter(group == 2) %>%
+    select(paste0(item, "_", week))
+  cohend = cohens_d(plac[,1], sert[,1])
+  return(cohend)
+}  
+
+cohensd_2wk_items = lapply(node.names[-1], item.cd, week = "2wk")
+names(cohensd_2wk_items) = node.names[-1]
+
+cohensd_6wk_items = lapply(node.names[-1], item.cd, week = "6wk")
+names(cohensd_6wk_items) = node.names[-1]
+
+cohensd_12wk_items = lapply(node.names[-1], item.cd, week = "12wk")
+names(cohensd_12wk_items) = node.names[-1]
+
+
+get_summary_cohensd = function(df, item) {
+  dataframe = data.frame(cohensd = df[[item]][["Cohens_d"]],
+                         CI_low = df[[item]][["CI_low"]],
+                         CI_high = df[[item]][["CI_high"]],
+                         symptom = names(df[item]))
+  return(dataframe)
+}
+
+cohensd_2wk_items_sum =  bind_rows(lapply(node.names[-1], get_summary_cohensd, df = cohensd_2wk_items))
+cohensd_6wk_items_sum =  bind_rows(lapply(node.names[-1], get_summary_cohensd, df = cohensd_6wk_items))
+cohensd_12wk_items_sum =  bind_rows(lapply(node.names[-1], get_summary_cohensd, df = cohensd_12wk_items))
+
+
+cohensd_item_sum = rbind(cohensd_2wk_items_sum, cohensd_6wk_items_sum, cohensd_12wk_items_sum)
+cohensd_item_sum$time = c(rep("2 weeks",21), rep("6 weeks",21), rep("12 weeks", 21))
+cohensd_item_sum$time_f = factor(cohensd_item_sum$time, levels = c("2 weeks", "6 weeks", "12 weeks"))
+
+# Plot
+
+cohensd_plot = ggplot(cohensd_item_sum, aes(y = symptom, x = cohensd, xmin = CI_low, xmax = CI_high)) +
+  geom_point(position = position_dodge(width = 1)) +
+  geom_errorbarh(height = 0.2, position = position_dodge(width = 1)) +
+  geom_vline(aes(xintercept=0), color='black', linetype='dashed', alpha=.5) +
+  geom_vline(data = filter(cohensd_item_sum, time =="2 weeks"), 
+             aes(xintercept=cohensd_2wk), color='red', linetype='solid', alpha=.7) +
+  geom_vline(data = filter(cohensd_item_sum, time =="6 weeks"), 
+             aes(xintercept=cohensd_6wk), color='red', linetype='solid', alpha=.7)+
+  geom_vline(data = filter(cohensd_item_sum, time =="12 weeks"), 
+             aes(xintercept=cohensd_12wk), color='red', linetype='solid', alpha=.7)+
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  scale_y_discrete(limits = rev(sort(unique(cohensd_item_sum$symptom))))+
+  scale_x_continuous(
+    breaks = c(-0.5, -0.25, 0, 0.25, 0.5),
+    labels = c("", "-0.25", "0", "0.25", "")
+  )+
+  facet_wrap(~time_f) +
+  ylab("Symptom") +
+  xlab("Cohen's d")
+
+pdf(paste0(results, "plots/", "cohensd_plot.pdf"), width = 6, height = 5)
+plot(cohensd_plot)
 dev.off()
 

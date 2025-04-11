@@ -113,7 +113,7 @@ twoweeks.ebic.pla.res = twoweeks.mgm.res.data %>%  filter(TREAT == 0) %>% select
   estimateNetwork(., default = "EBICglasso")
 
 
-twoweeks.ebic.nct = NCT(twoweeks.ebic.treat.res, twoweeks.ebic.pla.res, it = 100, 
+twoweeks.ebic.nct = NCT(twoweeks.ebic.treat.res, twoweeks.ebic.pla.res, it = 1000, 
                         paired = FALSE, test.edges = TRUE, 
                         edges = "all", 
                         p.adjust.methods = "fdr",
@@ -129,7 +129,7 @@ sixweeks.ebic.treat.res = sixweeks.mgm.res.data %>%  filter(TREAT == 1) %>% sele
 sixweeks.ebic.pla.res = sixweeks.mgm.res.data %>%  filter(TREAT == 0) %>% select(-TREAT) %>%
   estimateNetwork(., default = "EBICglasso")
 
-sixweeks.ebic.nct = NCT(sixweeks.ebic.treat.res, sixweeks.ebic.pla.res, it = 100, 
+sixweeks.ebic.nct = NCT(sixweeks.ebic.treat.res, sixweeks.ebic.pla.res, it = 1000, 
                         paired = FALSE, test.edges = TRUE, 
                         edges = "all", 
                         p.adjust.methods = "fdr",
@@ -146,7 +146,7 @@ twelveweeks.ebic.pla.res = twelveweeks.mgm.res.data %>%  filter(TREAT == 0) %>% 
   estimateNetwork(., default = "EBICglasso")
 
 
-twelveweeks.ebic.nct = NCT(twelveweeks.ebic.treat.res, twelveweeks.ebic.pla.res, it = 100, 
+twelveweeks.ebic.nct = NCT(twelveweeks.ebic.treat.res, twelveweeks.ebic.pla.res, it = 1000, 
                            paired = FALSE, test.edges = TRUE, 
                            edges = "all", 
                            p.adjust.methods = "fdr",
@@ -183,5 +183,29 @@ write.csv(ebic.network(twelveweeks.ebic.pla.res$graph, twelveweeks.ebic.treat.re
           file = "results/tables/ebic.twelve.csv", quote = F, row.names = F)
 
 
+# Add CIs for network edges
+twoweeks_ci = bootnet(twoweeks.mgm.res, nBoots = 2500, nCores = 8, statistics = "edge")
+twoweeks_ci_sum = summary(twoweeks_ci)
 
+sixweeks_ci = bootnet(sixweeks.mgm.res, nBoots = 2500, nCores = 8, statistics = "edge")
+sixweeks_ci_sum = summary(sixweeks_ci)
+
+twelveweeks_ci = bootnet(twelveweeks.mgm.res, nBoots = 2500, nCores = 8, statistics = "edge")
+twelveweeks_ci_sum = summary(twelveweeks_ci)
+
+
+twoweeks_ci_table = twoweeks_ci_sum %>% ungroup() %>% dplyr::select(node1, node2, sample, CIlower, CIupper) %>% filter(sample != 0)
+twoweeks_ci_table$node1 =  gsub("_2wk", "", twoweeks_ci_table$node1)
+twoweeks_ci_table$node2 =  gsub("_2wk", "", twoweeks_ci_table$node2)
+write.csv(twoweeks_ci_table, file = "results/tables/two.mgm.ci.csv", quote = F, row.names = F)
+
+sixweeks_ci_table = sixweeks_ci_sum %>% ungroup() %>% dplyr::select(node1, node2, sample, CIlower, CIupper)%>% filter(sample != 0)
+sixweeks_ci_table$node1 =  gsub("_6wk", "", sixweeks_ci_table$node1)
+sixweeks_ci_table$node2 =  gsub("_6wk", "", sixweeks_ci_table$node2)
+write.csv(sixweeks_ci_table, file = "results/tables/six.mgm.ci.csv", quote = F, row.names = F)
+
+twelveweeks_ci_table = twelveweeks_ci_sum %>% ungroup() %>% dplyr::select(node1, node2, sample, CIlower, CIupper)%>% filter(sample != 0)
+twelveweeks_ci_table$node1 =  gsub("_12wk", "", twelveweeks_ci_table$node1)
+twelveweeks_ci_table$node2 =  gsub("_12wk", "", twelveweeks_ci_table$node2)
+write.csv(twelveweeks_ci_table, file = "results/tables/twelve.mgm.ci.csv", quote = F, row.names = F)
 

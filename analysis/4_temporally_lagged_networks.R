@@ -54,10 +54,76 @@ SAD_12wk  ~  BAD_6wk+ANX_6wk+AFR_6wk+FAI_6wk+GUI_6wk+PUN_6wk+CRY_6wk+IND_6wk+LIB
 APP_12wk  ~  BAD_6wk+ANX_6wk+AFR_6wk+FAI_6wk+GUI_6wk+PUN_6wk+CRY_6wk+IND_6wk+LIB_6wk+PHY_6wk+IMP_6wk+TIR_6wk+WOR_6wk+ANH_6wk+DIS_6wk+RES_6wk+SUI_6wk+SAD_6wk+APP_6wk+CON_6wk+SLE_6wk + TREAT
 CON_12wk  ~  BAD_6wk+ANX_6wk+AFR_6wk+FAI_6wk+GUI_6wk+PUN_6wk+CRY_6wk+IND_6wk+LIB_6wk+PHY_6wk+IMP_6wk+TIR_6wk+WOR_6wk+ANH_6wk+DIS_6wk+RES_6wk+SUI_6wk+SAD_6wk+APP_6wk+CON_6wk+SLE_6wk + TREAT
 SLE_12wk  ~  BAD_6wk+ANX_6wk+AFR_6wk+FAI_6wk+GUI_6wk+PUN_6wk+CRY_6wk+IND_6wk+LIB_6wk+PHY_6wk+IMP_6wk+TIR_6wk+WOR_6wk+ANH_6wk+DIS_6wk+RES_6wk+SUI_6wk+SAD_6wk+APP_6wk+CON_6wk+SLE_6wk + TREAT
+
+# Covariances between week 6 variables 
+BAD_6wk ~~ ANX_6wk + AFR_6wk + FAI_6wk + GUI_6wk + PUN_6wk + CRY_6wk + 
+           IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + 
+           ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + 
+           CON_6wk + SLE_6wk
+
+ANX_6wk ~~ AFR_6wk + FAI_6wk + GUI_6wk + PUN_6wk + CRY_6wk + IND_6wk + 
+           LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + 
+           DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+AFR_6wk ~~ FAI_6wk + GUI_6wk + PUN_6wk + CRY_6wk + IND_6wk + LIB_6wk + 
+           PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + 
+           RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+FAI_6wk ~~ GUI_6wk + PUN_6wk + CRY_6wk + IND_6wk + LIB_6wk + PHY_6wk + 
+           IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + 
+           SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+GUI_6wk ~~ PUN_6wk + CRY_6wk + IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + 
+           TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + 
+           SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+PUN_6wk ~~ CRY_6wk + IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + 
+           WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + 
+           APP_6wk + CON_6wk + SLE_6wk
+
+CRY_6wk ~~ IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + 
+           ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + 
+           CON_6wk + SLE_6wk
+
+IND_6wk ~~ LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + 
+           DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+LIB_6wk ~~ PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + 
+           RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+PHY_6wk ~~ IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + 
+           SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+IMP_6wk ~~ TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + 
+           SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+TIR_6wk ~~ WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + 
+           APP_6wk + CON_6wk + SLE_6wk
+
+WOR_6wk ~~ ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + 
+           CON_6wk + SLE_6wk
+
+ANH_6wk ~~ DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+DIS_6wk ~~ RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+RES_6wk ~~ SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+SUI_6wk ~~ SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+SAD_6wk ~~ APP_6wk + CON_6wk + SLE_6wk
+
+APP_6wk ~~ CON_6wk + SLE_6wk
+
+CON_6wk ~~ SLE_6wk
+
 "
+
+
 # Run model ====
 ti.model.full.sem = sem(ti.model.full, data = data.res, estimator = "ML", missing = "FIML")
 
+ti.model.full.fitme = fitmeasures(ti.model.full.sem, fit.measures = c("cfi", "rmsea"))
 
 
 # Save parameters ====
@@ -108,6 +174,68 @@ ti.net.lag2.st = ti.estimates.lag2 %>%
 
 # Separate group networks ====
 # M1: Free groups, free time points ====
+cov_6wk = '# Covariances between week 6 variables 
+  BAD_6wk ~~ ANX_6wk + AFR_6wk + FAI_6wk + GUI_6wk + PUN_6wk + CRY_6wk + 
+  IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + 
+  ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + 
+  CON_6wk + SLE_6wk
+
+ANX_6wk ~~ AFR_6wk + FAI_6wk + GUI_6wk + PUN_6wk + CRY_6wk + IND_6wk + 
+  LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + 
+  DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+AFR_6wk ~~ FAI_6wk + GUI_6wk + PUN_6wk + CRY_6wk + IND_6wk + LIB_6wk + 
+  PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + 
+  RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+FAI_6wk ~~ GUI_6wk + PUN_6wk + CRY_6wk + IND_6wk + LIB_6wk + PHY_6wk + 
+  IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + 
+  SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+GUI_6wk ~~ PUN_6wk + CRY_6wk + IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + 
+  TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + 
+  SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+PUN_6wk ~~ CRY_6wk + IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + 
+  WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + 
+  APP_6wk + CON_6wk + SLE_6wk
+
+CRY_6wk ~~ IND_6wk + LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + 
+  ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + 
+  CON_6wk + SLE_6wk
+
+IND_6wk ~~ LIB_6wk + PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + 
+  DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+LIB_6wk ~~ PHY_6wk + IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + 
+  RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+PHY_6wk ~~ IMP_6wk + TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + 
+  SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+IMP_6wk ~~ TIR_6wk + WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + 
+  SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+TIR_6wk ~~ WOR_6wk + ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + 
+  APP_6wk + CON_6wk + SLE_6wk
+
+WOR_6wk ~~ ANH_6wk + DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + 
+  CON_6wk + SLE_6wk
+
+ANH_6wk ~~ DIS_6wk + RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+DIS_6wk ~~ RES_6wk + SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+RES_6wk ~~ SUI_6wk + SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+SUI_6wk ~~ SAD_6wk + APP_6wk + CON_6wk + SLE_6wk
+
+SAD_6wk ~~ APP_6wk + CON_6wk + SLE_6wk
+
+APP_6wk ~~ CON_6wk + SLE_6wk
+
+CON_6wk ~~ SLE_6wk'
+
 # two lags: 6wk predicted by 2wk, 12wk predicted by 6wk
 n.nodes = 21
 
@@ -124,7 +252,7 @@ for (i in 1:n.nodes){  # for each network node
   model_free_lag2[i] <- paste(name.t3, " ~ ", paste(paste(include.t2, sep = ""), collapse = "+"))
 }  
 
-model_free_full <- c(model_free_lag1, model_free_lag2) # create full model with all lags
+model_free_full <- c(model_free_lag1, model_free_lag2, cov_6wk) # create full model with all lags
 
 freegroups_freetime = sem(model_free_full, data = data.res, group = "TREAT", estimator = "ML", missing = "FIML")
 summary_freegroups = summary(freegroups_freetime)
@@ -149,7 +277,7 @@ for (i in 1:n.nodes){
   model_equal_lag2[i] <- paste(name.t3, " ~ ", paste(paste(betas.t2,'*',include.t2, sep = ""), collapse = "+"))
 }  
 
-model_equal_full <- c(model_equal_lag1, model_equal_lag2)
+model_equal_full <- c(model_equal_lag1, model_equal_lag2, cov_6wk)
 
 equalgroups_freetime = sem(model_equal_full, data = data.res, group = "TREAT", group.equal = c("regressions"), estimator = "ML", missing = "FIML")
 
@@ -163,6 +291,9 @@ model.comparison = anova(freegroups_freetime,
 
 write.csv(model.comparison, paste0(results, "tables/model.comparison.csv"), quote = F)
 
+freegroups_freetime.fitme = fitmeasures(freegroups_freetime, fit.measures = c("cfi", "rmsea"))
+equalgroups_freetime.fitme = fitmeasures(equalgroups_freetime, fit.measures = c("cfi", "rmsea"))
+
 # Save parameters =====
 m1_par = subset( # save all estimated regressions
   parameterEstimates(freegroups_freetime),
@@ -174,4 +305,17 @@ m2_par = subset(
   op == "~" & lhs %in% c(colnames(data.res))
 )
 
+
+# Add CIs to networks ====
+ti.net.lag1.st.ci = ti.estimates.lag1 %>% 
+  mutate(est.net = ifelse(pvalue <0.05,std.all,0),
+         t2.node = gsub("_6wk", "", lhs),
+         t1.node = gsub("_2wk", "", rhs)) %>%
+  select(t1.node,t2.node,est.net,ci.lower,ci.upper)
+
+ti.net.lag2.st.ci = ti.estimates.lag2 %>% 
+  mutate(est.net = ifelse(pvalue <0.05,std.all,0),
+         t2.node = gsub("_12wk", "", lhs),
+         t1.node = gsub("_6wk", "", rhs)) %>%
+  select(t1.node,t2.node,est.net,ci.lower,ci.upper)
 
